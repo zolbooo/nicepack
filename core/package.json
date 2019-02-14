@@ -12,7 +12,8 @@
   "author": "Zolboobayar Gantumur <zaccess33rus@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "webpack": "^4.29.3"
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",

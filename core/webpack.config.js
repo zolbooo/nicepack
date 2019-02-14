@@ -9,7 +9,6 @@ const CSSoutputFilename = "static/css/[name].[contenthash:8].chunk.css";
 
 const webpack = require("webpack");
 
-const SriPlugin = require("webpack-subresource-integrity");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
@@ -111,7 +110,7 @@ let config = {
         use: styleLoaders()
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|sass)$/,
         use: styleLoaders("sass-loader")
       }
     ]
@@ -163,11 +162,7 @@ if (fs.existsSync(path.join(currentDirectory, "src", "assets")))
 config.plugins.push(new CopyWebpackPlugin(copyPaths));
 
 if (isProductionMode) {
-  config.output.crossOriginLoading = "anonymous";
   injectPlugins(
-    new SriPlugin({
-      hashFuncNames: ["sha384"]
-    }),
     new CleanWebpackPlugin([distPath], {
       verbose: false,
       allowExternal: true
