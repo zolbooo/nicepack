@@ -1,0 +1,22 @@
+{
+  "name": "@nicepack/react",
+  "version": "1.0.0-1",
+  "description": "React plugin for Nicepack",
+  "main": "index.js",
+  "keywords": [
+    "react",
+    "webpack",
+    "nicepack"
+  ],
+  "author": "Zolboobayar Gantumur <zaccess33rus@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@nicepack/core": ">= 0.0.3-2",
+    "@babel/core": "^7.0.0-0"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
+  }
+}
