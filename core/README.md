@@ -72,7 +72,7 @@ If you would like to use plugins, add them in nicepack call like this:
 module.exports = nicepack(require("@nicepack/react"));
 ```
 
-### Custom plugins for nicepack
+## Custom plugins for nicepack
 
 You can write custom plugins adding new loaders, resolve extensions, and copy paths for CopyWebpackPlugin. You also can modify configuration for babel, css and sass loaders.
 
@@ -82,6 +82,27 @@ Example plugin(`@nicepack/react`):
 module.exports = config => {
   config.babel.presets.push("@babel/preset-react");
 };
+```
+
+### How to use
+
+Plugin is called with `options` object:
+
+```
+options.babel - Babel configuration
+options.css - CSS loader
+options.sass - SASS loader
+options.htmlMinifyOptions - HTML minifier options
+options.modules - Add loaders for files like:
+options.modules.push({
+  test: /\.(scss|sass)$/,
+  use: styleLoaders("sass-loader")
+})
+options.plugins - Add webpack plugins by pushing them there
+options.extensions - Add resolve extensions
+Default: [".js", ".jsx", ".scss", ".sass", ".css"]
+options.copyPaths - Copy paths for CopyWebpackPlugin
+Default: ["public/", "src/assets" (if exists)]
 ```
 
 Plugins and loaders included:

@@ -99,11 +99,10 @@ const config = options => ({
         use: [
           {
             loader: path.join(__dirname, "config", "babel.loader.js"),
-            options: Object.assign(
-              { root: path.join(currentDirectory, "src") },
-              options.babel ||
-                require(path.join(__dirname, "config", "babel.config.js"))
-            )
+            options: {
+              root: path.join(currentDirectory, "src"),
+              ...options.babel
+            }
           }
         ]
       },
@@ -136,12 +135,13 @@ const config = options => ({
     alias: {
       "@": path.join(currentDirectory, "src")
     },
-    extensions: [".js", ".jsx", ".scss", ".sass", ".css"]
+    extensions: [".js", ".jsx", ".scss", ".sass", ".css", ...options.extensions]
   }
 });
 
 module.exports = (...plugins) => {
   let options = {
+    babel: require(path.join(__dirname, "config", "babel.config.js")),
     css: {
       test: /\.css$/,
       use: styleLoaders()
