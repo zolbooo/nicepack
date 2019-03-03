@@ -178,7 +178,7 @@ module.exports = (...plugins) => {
       from: assetsPath,
       to: "assets"
     });
-  plugins.forEach(plugin.bind(this, options));
+  plugins.forEach(plugin => plugin(options));
   let webpackConfig = config(options);
   if (!isProductionMode)
     Object.assign(webpackConfig, { devtool: "inline-source-map" });
