@@ -66,15 +66,26 @@ const nicepack = require("@nicepack/core");
 module.exports = nicepack();
 ```
 
-If you would like to use plugins, add them in nicepack() like this:
+If you would like to use plugins, add them in nicepack call like this:
 
 ```
 module.exports = nicepack(require("@nicepack/react"));
 ```
 
+### Custom plugins for nicepack
+
+You can write custom plugins adding new loaders, resolve extensions, and copy paths for CopyWebpackPlugin. You also can modify configuration for babel, css and sass loaders.
+
+Example plugin(`@nicepack/react`):
+
+```
+module.exports = config => {
+  config.babel.presets.push("@babel/preset-react");
+};
+```
+
 Plugins and loaders included:
 
-- webpack-subresource-integrity
 - html-webpack-plugin
 - copy-webpack-plugin
 - clean-webpack-plugin

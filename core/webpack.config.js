@@ -60,8 +60,9 @@ const styleLoaders = (...additionalLoaders) => {
 
 const srcPath = path.join(currentDirectory, "src");
 const distPath = path.join(currentDirectory, "dist");
+const assetsPath = path.join(srcPath, "assets");
 
-let config = {
+const config = options => ({
   mode: isProductionMode ? "production" : "development",
   entry: [path.join(srcPath, "index.js")],
   optimization: {
@@ -85,9 +86,9 @@ let config = {
     ]
   },
   output: {
+    path: distPath,
     filename: outputFilename,
-    chunkFilename: outputFilename,
-    path: path.join(currentDirectory, "dist")
+    chunkFilename: outputFilename
   },
   module: {
     strictExportPresence: true,
@@ -100,19 +101,15 @@ let config = {
             loader: path.join(__dirname, "config", "babel.loader.js"),
             options: Object.assign(
               { root: path.join(currentDirectory, "src") },
-              require(path.join(__dirname, "config", "babel.config.js"))
+              options.babel ||
+                require(path.join(__dirname, "config", "babel.config.js"))
             )
           }
         ]
       },
-      {
-        test: /\.css$/,
-        use: styleLoaders()
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: styleLoaders("sass-loader")
-      }
+      options.css,
+      options.sass,
+      ...options.modules
     ]
   },
   plugins: [
@@ -126,19 +123,14 @@ let config = {
     new HtmlWebpackPlugin({
       template: path.join("public", "index.html"),
       inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true
-      }
-    })
+      minify: options.htmlMinifyOptions
+    }),
+    new CleanWebpackPlugin([distPath], {
+      verbose: false,
+      allowExternal: true
+    }),
+    new CopyWebpackPlugin(options.copyPaths),
+    ...options.plugins
   ],
   resolve: {
     alias: {
@@ -146,33 +138,49 @@ let config = {
     },
     extensions: [".js", ".jsx", ".scss", ".sass", ".css"]
   }
-};
-
-const injectPlugins = (...plugins) => config.plugins.push(...plugins);
-
-let copyPaths = [
-  {
-    from: "public",
-    to: "dist",
-    ignore: ["index.html"]
-  }
-];
-if (fs.existsSync(path.join(currentDirectory, "src", "assets")))
-  copyPaths.push({ from: path.join("src", "assets"), to: "assets" });
-config.plugins.push(new CopyWebpackPlugin(copyPaths));
-
-if (isProductionMode) {
-  injectPlugins(
-    new CleanWebpackPlugin([distPath], {
-      verbose: false,
-      allowExternal: true
-    })
-  );
-} else {
-  Object.assign(config, { devtool: "inline-source-map" });
-}
+});
 
 module.exports = (...plugins) => {
-  plugins.forEach(plugin => plugin(config));
-  return config;
+  let options = {
+    css: {
+      test: /\.css$/,
+      use: styleLoaders()
+    },
+    sass: {
+      test: /\.(scss|sass)$/,
+      use: styleLoaders("sass-loader")
+    },
+    htmlMinifyOptions: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeRedundantAttributes: true,
+      useShortDoctype: true,
+      removeEmptyAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      keepClosingSlash: true,
+      minifyJS: true,
+      minifyCSS: true,
+      minifyURLs: true
+    },
+    modules: [],
+    plugins: [],
+    extensions: [],
+    copyPaths: [
+      {
+        from: "public",
+        to: "dist",
+        ignore: ["index.html"]
+      }
+    ]
+  };
+  if (fs.existsSync(assetsPath))
+    options.copyPaths.push({
+      from: assetsPath,
+      to: "assets"
+    });
+  plugins.forEach(plugin.bind(this, options));
+  let webpackConfig = config(options);
+  if (!isProductionMode)
+    Object.assign(webpackConfig, { devtool: "inline-source-map" });
+  return webpackConfig;
 };
