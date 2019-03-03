@@ -6,8 +6,8 @@
   "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
-    "@nicepack/core": "0.0.4",
-    "@nicepack/react": "^1.0.0",
+    "@nicepack/core": "^0.1.2",
+    "@nicepack/react": "^1.1.0",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
