@@ -169,7 +169,6 @@ module.exports = (...plugins) => {
     copyPaths: [
       {
         from: "public",
-        to: "dist",
         ignore: ["index.html"]
       }
     ],
