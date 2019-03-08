@@ -1,6 +1,6 @@
 {
   "name": "@nicepack/core",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Nicepack - nice webpack config",
   "main": "./webpack.config.js",
   "keywords": [

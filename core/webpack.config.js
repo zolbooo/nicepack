@@ -88,7 +88,8 @@ const config = options => ({
   output: {
     path: distPath,
     filename: outputFilename,
-    chunkFilename: outputFilename
+    chunkFilename: outputFilename,
+    publicPath: options.publicPath
   },
   module: {
     strictExportPresence: true,
@@ -171,7 +172,8 @@ module.exports = (...plugins) => {
         to: "dist",
         ignore: ["index.html"]
       }
-    ]
+    ],
+    publicPath: "/"
   };
   if (fs.existsSync(assetsPath))
     options.copyPaths.push({

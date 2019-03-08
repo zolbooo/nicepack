@@ -103,6 +103,8 @@ options.extensions - Add resolve extensions
 Default: [".js", ".jsx", ".scss", ".sass", ".css"]
 options.copyPaths - Copy paths for CopyWebpackPlugin
 Default: ["public/", "src/assets" (if exists)]
+options.publicPath - Public path for output
+Default: "/"
 ```
 
 Plugins and loaders included:
