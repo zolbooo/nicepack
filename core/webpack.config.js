@@ -133,6 +133,7 @@ const config = options => ({
     ...options.plugins
   ],
   stats: options.stats,
+  devServer: { stats: options.stats, compress: true, ...options.devServer },
   resolve: {
     alias: {
       "@": path.join(currentDirectory, "src")
@@ -143,6 +144,7 @@ const config = options => ({
 
 module.exports = (...plugins) => {
   let options = {
+    devServer: {},
     stats: { children: false },
     babel: require(path.join(__dirname, "config", "babel.config.js")),
     css: {
