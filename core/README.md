@@ -105,6 +105,7 @@ options.copyPaths - Copy paths for CopyWebpackPlugin
 Default: ["public/", "src/assets" (if exists)]
 options.publicPath - Public path for output
 Default: "/"
+options.stats - This directly refers to webpack option `stats`
 ```
 
 Plugins and loaders included:

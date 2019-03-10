@@ -132,6 +132,7 @@ const config = options => ({
     new CopyWebpackPlugin(options.copyPaths),
     ...options.plugins
   ],
+  stats: options.stats,
   resolve: {
     alias: {
       "@": path.join(currentDirectory, "src")
@@ -142,6 +143,7 @@ const config = options => ({
 
 module.exports = (...plugins) => {
   let options = {
+    stats: { children: false },
     babel: require(path.join(__dirname, "config", "babel.config.js")),
     css: {
       test: /\.css$/,
