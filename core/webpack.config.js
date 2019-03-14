@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const currentDirectory = process.cwd();
 
-const outputFilename = "static/js/[name].[hash:8].js";
+const outputFilename = "static/js/[name].[contenthash:8].js";
 const CSSoutputFilename = "static/css/[name].[contenthash:8].chunk.css";
 
 const webpack = require("webpack");
@@ -98,6 +98,7 @@ const config = options => ({
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
+          "thread-loader",
           {
             loader: path.join(__dirname, "config", "babel.loader.js"),
             options: {
@@ -133,7 +134,7 @@ const config = options => ({
     ...options.plugins
   ],
   stats: options.stats,
-  devServer: { stats: options.stats, compress: true, ...options.devServer },
+  devServer: options.devServer,
   resolve: {
     alias: {
       "@": path.join(currentDirectory, "src")
@@ -153,7 +154,7 @@ module.exports = (...plugins) => {
     },
     sass: {
       test: /\.(scss|sass)$/,
-      use: styleLoaders("sass-loader")
+      use: ["thread-loader", ...styleLoaders("sass-loader")]
     },
     htmlMinifyOptions: {
       removeComments: true,
