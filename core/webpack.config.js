@@ -98,7 +98,6 @@ const config = options => ({
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
-          "thread-loader",
           {
             loader: path.join(__dirname, "config", "babel.loader.js"),
             options: {
@@ -154,7 +153,7 @@ module.exports = (...plugins) => {
     },
     sass: {
       test: /\.(scss|sass)$/,
-      use: ["thread-loader", ...styleLoaders("sass-loader")]
+      use: styleLoaders("sass-loader")
     },
     htmlMinifyOptions: {
       removeComments: true,
