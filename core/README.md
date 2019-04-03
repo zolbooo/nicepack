@@ -53,6 +53,10 @@ console.log("Hello, nicepack!");
 
 Run `npm start` to start development server, its address is `http://localhost:8080` by default.
 
+v0.2.0:
+
+Disabled css modules by default. In order to use css as module file must end with `m.css` or `module.css`.
+
 ## @nicepack/core
 
 This is core package for nicepack.

@@ -33,21 +33,24 @@ const PostCSSConfig = require(path.join(
   "postcss.config.js"
 ));
 
-const styleLoaders = (...additionalLoaders) => {
+const styleLoaders = (useModules, ...additionalLoaders) => {
+  let cssLoaderOptions = {
+    modules: useModules,
+    sourceMap: true,
+    importLoaders: 1 + additionalLoaders.length
+  };
+  if (useModules)
+    cssLoaderOptions.localIdentName = isProductionMode
+      ? "[hash:base64:5]"
+      : "[local]__[hash:base64:5]";
+
   let loaders = [
     {
       loader: MiniCssExtractPlugin.loader
     },
     {
       loader: "css-loader",
-      options: {
-        modules: true,
-        sourceMap: true,
-        importLoaders: 1 + additionalLoaders.length,
-        localIdentName: isProductionMode
-          ? "[hash:base64:5]"
-          : "[local]__[hash:base64:5]"
-      }
+      options: cssLoaderOptions
     },
     {
       loader: require.resolve("postcss-loader"),
@@ -149,11 +152,19 @@ module.exports = (...plugins) => {
     babel: require(path.join(__dirname, "config", "babel.config.js")),
     css: {
       test: /\.css$/,
-      use: styleLoaders()
+      use: styleLoaders(false)
     },
     sass: {
       test: /\.(scss|sass)$/,
-      use: styleLoaders("sass-loader")
+      use: styleLoaders(false, "sass-loader")
+    },
+    css: {
+      test: /.m(odule)?\.css$/,
+      use: styleLoaders(true)
+    },
+    sass: {
+      test: /.m(odule)?\.(scss|sass)$/,
+      use: styleLoaders(true, "sass-loader")
     },
     htmlMinifyOptions: {
       removeComments: true,
@@ -189,3 +200,4 @@ module.exports = (...plugins) => {
     Object.assign(webpackConfig, { devtool: "inline-source-map" });
   return webpackConfig;
 };
+module.exports.styleLoaders = styleLoaders;

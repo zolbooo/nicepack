@@ -1,8 +1,8 @@
 {
   "name": "@nicepack/core",
-  "version": "0.1.7-1",
+  "version": "0.2.0",
   "description": "Nicepack - nice webpack config",
-  "main": "./webpack.config.js",
+  "main": "./index.js",
   "keywords": [
     "webpack",
     "babel",
