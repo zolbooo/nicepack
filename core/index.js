@@ -112,6 +112,8 @@ const config = options => ({
       },
       options.css,
       options.sass,
+      options.cssModule,
+      options.sassModule,
       ...options.modules
     ]
   },
@@ -158,11 +160,11 @@ module.exports = (...plugins) => {
       test: /\.(scss|sass)$/,
       use: styleLoaders(false, "sass-loader")
     },
-    css: {
+    cssModule: {
       test: /.m(odule)?\.css$/,
       use: styleLoaders(true)
     },
-    sass: {
+    sassModule: {
       test: /.m(odule)?\.(scss|sass)$/,
       use: styleLoaders(true, "sass-loader")
     },

@@ -96,6 +96,8 @@ Plugin is called with `options` object:
 options.babel - Babel configuration
 options.css - CSS loader
 options.sass - SASS loader
+options.cssModule - CSS module loader
+options.sassModule - SASS module loader
 options.htmlMinifyOptions - HTML minifier options
 options.modules - Add loaders for files like:
 options.modules.push({
