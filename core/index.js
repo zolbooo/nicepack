@@ -147,6 +147,9 @@ const config = options => ({
   }
 });
 
+const cssModuleRegex = /\.m(odule)?\.css$/;
+const sassModuleRegex = /\.m(odule)?\.(scss|sass)$/;
+
 module.exports = (...plugins) => {
   let options = {
     devServer: {},
@@ -154,18 +157,22 @@ module.exports = (...plugins) => {
     babel: require(path.join(__dirname, "config", "babel.config.js")),
     css: {
       test: /\.css$/,
-      use: styleLoaders(false)
+      exclude: cssModuleRegex,
+      use: styleLoaders(false),
+      sideEffects: true,
     },
     sass: {
       test: /\.(scss|sass)$/,
-      use: styleLoaders(false, "sass-loader")
+      exclude: sassModuleRegex,
+      use: styleLoaders(false, "sass-loader"),
+      sideEffects: true,
     },
     cssModule: {
-      test: /.m(odule)?\.css$/,
+      test: cssModuleRegex,
       use: styleLoaders(true)
     },
     sassModule: {
-      test: /.m(odule)?\.(scss|sass)$/,
+      test: sassModuleRegex,
       use: styleLoaders(true, "sass-loader")
     },
     htmlMinifyOptions: {
