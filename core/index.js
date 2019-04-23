@@ -130,10 +130,7 @@ const config = options => ({
       inject: true,
       minify: options.htmlMinifyOptions
     }),
-    new CleanWebpackPlugin([distPath], {
-      verbose: false,
-      allowExternal: true
-    }),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin(options.copyPaths),
     ...options.plugins
   ],
