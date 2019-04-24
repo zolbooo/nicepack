@@ -102,7 +102,7 @@ const config = options => ({
         exclude: /node_modules/,
         use: [
           {
-            loader: path.join(__dirname, "config", "babel.loader.js"),
+            loader: "babel-loader",
             options: {
               root: path.join(currentDirectory, "src"),
               ...options.babel
@@ -156,13 +156,18 @@ module.exports = (...plugins) => {
       test: /\.css$/,
       exclude: cssModuleRegex,
       use: styleLoaders(false),
-      sideEffects: true,
+      sideEffects: true
     },
     sass: {
       test: /\.(scss|sass)$/,
       exclude: sassModuleRegex,
-      use: styleLoaders(false, "sass-loader"),
-      sideEffects: true,
+      use: styleLoaders(false, {
+        loader: "sass-loader",
+        options: {
+          implementation: require("sass")
+        }
+      }),
+      sideEffects: true
     },
     cssModule: {
       test: cssModuleRegex,
@@ -170,7 +175,12 @@ module.exports = (...plugins) => {
     },
     sassModule: {
       test: sassModuleRegex,
-      use: styleLoaders(true, "sass-loader")
+      use: styleLoaders(true, {
+        loader: "sass-loader",
+        options: {
+          implementation: require("sass")
+        }
+      })
     },
     htmlMinifyOptions: {
       removeComments: true,
