@@ -1,83 +1,83 @@
-const isProductionMode = process.env.NODE_ENV === "production";
+const isProductionMode = process.env.NODE_ENV === 'production';
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 const currentDirectory = process.cwd();
 
-const outputFilename = "static/js/[name].[contenthash:8].js";
-const CSSoutputFilename = "static/css/[name].[contenthash:8].chunk.css";
+const outputFilename = 'static/js/[name].[contenthash:8].js';
+const CSSoutputFilename = 'static/css/[name].[contenthash:8].chunk.css';
 
-const webpack = require("webpack");
+const webpack = require('webpack');
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const TerserConfig = require(path.join(
   __dirname,
-  "config",
-  "terser.config.js"
+  'config',
+  'terser.config.js',
 ));
 
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CSSOptimizerConfig = require(path.join(
   __dirname,
-  "config",
-  "css.optimize.js"
+  'config',
+  'css.optimize.js',
 ));
 const PostCSSConfig = require(path.join(
   __dirname,
-  "config",
-  "postcss.config.js"
+  'config',
+  'postcss.config.js',
 ));
 
 const styleLoaders = (useModules, ...additionalLoaders) => {
   let cssLoaderOptions = {
     modules: useModules,
     sourceMap: true,
-    importLoaders: 1 + additionalLoaders.length
+    importLoaders: 1 + additionalLoaders.length,
   };
   if (useModules)
     cssLoaderOptions.localIdentName = isProductionMode
-      ? "[hash:base64:5]"
-      : "[local]__[hash:base64:5]";
+      ? '[hash:base64:5]'
+      : '[local]__[hash:base64:5]';
 
   let loaders = [
     {
-      loader: MiniCssExtractPlugin.loader
+      loader: MiniCssExtractPlugin.loader,
     },
     {
-      loader: "css-loader",
-      options: cssLoaderOptions
+      loader: 'css-loader',
+      options: cssLoaderOptions,
     },
     {
-      loader: require.resolve("postcss-loader"),
-      options: PostCSSConfig
-    }
+      loader: require.resolve('postcss-loader'),
+      options: PostCSSConfig,
+    },
   ];
   loaders.push(...additionalLoaders);
   return loaders;
 };
 
-const srcPath = path.join(currentDirectory, "src");
-const distPath = path.join(currentDirectory, "dist");
-const assetsPath = path.join(srcPath, "assets");
+const srcPath = path.join(currentDirectory, 'src');
+const distPath = path.join(currentDirectory, 'dist');
+const assetsPath = path.join(srcPath, 'assets');
 
 const config = options => ({
-  mode: isProductionMode ? "production" : "development",
-  entry: [path.join(srcPath, "index.js")],
+  mode: isProductionMode ? 'production' : 'development',
+  entry: [path.join(srcPath, 'index.js')],
   optimization: {
     splitChunks: {
       cacheGroups: {
         vendor: {
           test: /node_modules/,
-          chunks: "initial",
-          name: "vendor",
-          enforce: true
-        }
-      }
+          chunks: 'initial',
+          name: 'vendor',
+          enforce: true,
+        },
+      },
     },
     sideEffects: true,
     usedExports: true,
@@ -85,14 +85,14 @@ const config = options => ({
     minimize: isProductionMode,
     minimizer: [
       new TerserPlugin(TerserConfig),
-      new OptimizeCSSAssetsPlugin(CSSOptimizerConfig)
-    ]
+      new OptimizeCSSAssetsPlugin(CSSOptimizerConfig),
+    ],
   },
   output: {
     path: distPath,
     filename: outputFilename,
     chunkFilename: outputFilename,
-    publicPath: options.publicPath
+    publicPath: options.publicPath,
   },
   module: {
     strictExportPresence: true,
@@ -102,46 +102,53 @@ const config = options => ({
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              root: path.join(currentDirectory, "src"),
-              ...options.babel
-            }
-          }
-        ]
+              root: path.join(currentDirectory, 'src'),
+              ...options.babel,
+            },
+          },
+        ],
       },
       options.css,
       options.sass,
       options.cssModule,
       options.sassModule,
-      ...options.modules
-    ]
+      ...options.modules,
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      PRODUCTION: JSON.stringify(isProductionMode)
+      PRODUCTION: JSON.stringify(isProductionMode),
     }),
     new MiniCssExtractPlugin({
       filename: CSSoutputFilename,
-      chunkFilename: CSSoutputFilename
+      chunkFilename: CSSoutputFilename,
     }),
     new HtmlWebpackPlugin({
-      template: path.join("public", "index.html"),
+      template: path.join('public', 'index.html'),
       inject: true,
-      minify: options.htmlMinifyOptions
+      minify: options.htmlMinifyOptions,
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin(options.copyPaths),
-    ...options.plugins
+    ...options.plugins,
   ],
   stats: options.stats,
   devServer: options.devServer,
   resolve: {
     alias: {
-      "@": path.join(currentDirectory, "src")
+      '@': path.join(currentDirectory, 'src'),
     },
-    extensions: [".js", ".jsx", ".scss", ".sass", ".css", ...options.extensions]
-  }
+    extensions: [
+      '.js',
+      '.jsx',
+      '.scss',
+      '.sass',
+      '.css',
+      ...options.extensions,
+    ],
+  },
 });
 
 const cssModuleRegex = /\.m(odule)?\.css$/;
@@ -151,36 +158,36 @@ module.exports = (...plugins) => {
   let options = {
     devServer: {},
     stats: { children: false },
-    babel: require(path.join(__dirname, "config", "babel.config.js")),
+    babel: require(path.join(__dirname, 'config', 'babel.config.js')),
     css: {
       test: /\.css$/,
       exclude: cssModuleRegex,
       use: styleLoaders(false),
-      sideEffects: true
+      sideEffects: true,
     },
     sass: {
       test: /\.(scss|sass)$/,
       exclude: sassModuleRegex,
       use: styleLoaders(false, {
-        loader: "sass-loader",
+        loader: 'sass-loader',
         options: {
-          implementation: require("sass")
-        }
+          implementation: require('sass'),
+        },
       }),
-      sideEffects: true
+      sideEffects: true,
     },
     cssModule: {
       test: cssModuleRegex,
-      use: styleLoaders(true)
+      use: styleLoaders(true),
     },
     sassModule: {
       test: sassModuleRegex,
       use: styleLoaders(true, {
-        loader: "sass-loader",
+        loader: 'sass-loader',
         options: {
-          implementation: require("sass")
-        }
-      })
+          implementation: require('sass'),
+        },
+      }),
     },
     htmlMinifyOptions: {
       removeComments: true,
@@ -192,28 +199,28 @@ module.exports = (...plugins) => {
       keepClosingSlash: true,
       minifyJS: true,
       minifyCSS: true,
-      minifyURLs: true
+      minifyURLs: true,
     },
     modules: [],
     plugins: [],
     extensions: [],
     copyPaths: [
       {
-        from: "public",
-        ignore: ["index.html"]
-      }
+        from: 'public',
+        ignore: ['index.html'],
+      },
     ],
-    publicPath: "/"
+    publicPath: '/',
   };
   if (fs.existsSync(assetsPath))
     options.copyPaths.push({
       from: assetsPath,
-      to: "assets"
+      to: 'assets',
     });
   plugins.forEach(plugin => plugin(options));
   let webpackConfig = config(options);
   if (!isProductionMode)
-    Object.assign(webpackConfig, { devtool: "inline-source-map" });
+    Object.assign(webpackConfig, { devtool: 'inline-source-map' });
   return webpackConfig;
 };
 module.exports.styleLoaders = styleLoaders;
