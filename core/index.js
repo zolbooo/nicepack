@@ -197,7 +197,6 @@ module.exports = (...plugins) => {
             loader: 'babel-loader',
             options: {
               root: path.join(currentDirectory, 'src'),
-              ...options.babel,
             },
           },
         ],
@@ -219,6 +218,7 @@ module.exports = (...plugins) => {
       to: 'assets',
     });
   plugins.forEach(plugin => plugin(options));
+  Object.assign(options.modules[0].use[0].options, options.babel);
   let webpackConfig = config(options);
   if (!isProductionMode)
     Object.assign(webpackConfig, { devtool: 'inline-source-map' });
