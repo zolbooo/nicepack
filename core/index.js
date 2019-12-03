@@ -97,19 +97,6 @@ const config = options => ({
   module: {
     strictExportPresence: true,
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              root: path.join(currentDirectory, 'src'),
-              ...options.babel,
-            },
-          },
-        ],
-      },
       options.css,
       options.sass,
       options.cssModule,
@@ -201,7 +188,21 @@ module.exports = (...plugins) => {
       minifyCSS: true,
       minifyURLs: true,
     },
-    modules: [],
+    modules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              root: path.join(currentDirectory, 'src'),
+              ...options.babel,
+            },
+          },
+        ],
+      },
+    ],
     plugins: [],
     extensions: [],
     copyPaths: [
