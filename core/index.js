@@ -67,7 +67,7 @@ const assetsPath = path.join(srcPath, 'assets');
 
 const config = options => ({
   mode: isProductionMode ? 'production' : 'development',
-  entry: [path.join(srcPath, 'index.js')],
+  entry: options.entry || [path.join(srcPath, 'index.js')],
   optimization: {
     splitChunks: {
       cacheGroups: {

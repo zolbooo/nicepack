@@ -104,6 +104,7 @@ options.modules.push({
   test: /\.(scss|sass)$/,
   use: styleLoaders("sass-loader")
 })
+options.entry - Override default webpack entry
 options.plugins - Add webpack plugins by pushing them there
 options.extensions - Add resolve extensions
 Default: [".js", ".jsx", ".scss", ".sass", ".css"]
