@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const currentDirectory = process.cwd();
 
-const outputFilename = 'static/js/[name].[contenthash:8].js';
-const CSSoutputFilename = 'static/css/[name].[contenthash:8].chunk.css';
+const outputFilename = 'static/js/[name].[hash:8].js';
+const CSSoutputFilename = 'static/css/[name].[hash:8].chunk.css';
 
 const webpack = require('webpack');
 
