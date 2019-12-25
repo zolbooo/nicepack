@@ -1,6 +1,6 @@
 {
   "name": "@nicepack/react",
-  "version": "1.1.0-1",
+  "version": "1.2.0",
   "description": "React plugin for Nicepack",
   "main": "index.js",
   "keywords": [
@@ -11,12 +11,14 @@
   "author": "Zolboobayar Gantumur <zaccess33rus@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@nicepack/core": ">= 0.0.3-2",
+    "@nicepack/core": ">= 0.3.0",
     "@babel/core": "^7.0.0-0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-react": "^7.0.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.1.3",
+    "react-refresh": "^0.7.1"
   }
 }
