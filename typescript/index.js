@@ -6,7 +6,7 @@ module.exports = config => {
     '@babel/plugin-transform-typescript',
     { isTSX: true, allExtensions: true },
   ]);
-  config.extensions = ['.ts', '.tsx'];
+  config.extensions.push('.ts', '.tsx');
   config.modules[0].test = /\.(tsx?|jsx?)$/;
   config.entry = () => {
     const paths = [
