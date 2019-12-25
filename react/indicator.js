@@ -2,6 +2,35 @@ function useFastReloadIndicator() {
   if (process.env.NODE_ENV === 'production') return;
   let hideTimeout = null;
 
+  const styles = document.createElement('style');
+  styles.innerHTML = `.fastReloadIndicator--Container {
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    z-index: 99999;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000040;
+  
+    overflow-y: hidden;
+    max-height: 80px;
+  
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+  .fastReloadIndicator--Container__hide {
+    max-height: 0;
+  }
+  
+  .fastReloadIndicator--StatusText {
+    color: white;
+    font-size: 1.3rem;
+  }`;
+  document.body.appendChild(styles);
+
   const Container = document.createElement('div');
   Container.className =
     'fastReloadIndicator--Container fastReloadIndicator--Container__hide';
