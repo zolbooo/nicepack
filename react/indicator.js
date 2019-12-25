@@ -45,14 +45,14 @@ function useFastReloadIndicator() {
         clearTimeout(hideTimeout);
         Container.classList.add('fastReloadIndicator--Container__hide');
         Container.classList.remove('fastReloadIndicator--Container__hide');
-        Status.innerText = 'Fast Reload is working...';
+        Status.innerText = 'Refreshing using Fast Reload...';
         break;
       case 'idle':
         hideTimeout = setTimeout(() => {
           Container.classList.add('fastReloadIndicator--Container__hide');
         }, 1500);
         Status.innerText =
-          "Fast Reload refreshed page. If this didn't work, reload page";
+          "Reloaded. If you don't see any changes, reload page";
         break;
     }
   });
