@@ -9,7 +9,7 @@ function useFastReloadIndicator() {
     height: 80px;
     display: flex;
     z-index: 99999;
-    position: absolute;
+    position: fixed;
     align-items: center;
     justify-content: center;
     background-color: #00000040;
