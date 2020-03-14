@@ -143,7 +143,11 @@ const sassModuleRegex = /\.m(odule)?\.(scss|sass)$/;
 
 module.exports = (...plugins) => {
   let options = {
-    devServer: {},
+    devServer: {
+      historyApiFallback: true,
+      overlay: true,
+      host: '0.0.0.0',
+    },
     stats: { children: false },
     babel: require(path.join(__dirname, 'config', 'babel.config.js')),
     css: {
