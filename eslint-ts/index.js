@@ -18,6 +18,7 @@ module.exports = {
     'import/newline-after-import': 'off',
     '@typescript-eslint/indent': 'off',
     'import/no-unresolved': 'off',
+    'import/extensions': 'off',
     'no-param-reassign': 'off',
     'global-require': 'off',
     'no-console': 'off',
