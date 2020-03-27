@@ -25,7 +25,7 @@ module.exports = {
     'no-console': 'off',
     'no-alert': 'off',
   },
-  settings = {
+  settings: {
     'import/resolver': {
       'babel-module': {},
     },
