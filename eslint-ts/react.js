@@ -1,6 +1,7 @@
 const config = require('./base');
 
 config.settings = {
+  ...config.settings,
   react: {
     version: 'detect',
   },
