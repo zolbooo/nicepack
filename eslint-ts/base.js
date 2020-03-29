@@ -6,6 +6,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   parserOptions: {
+    project: './tsconfig.json',
     sourceType: 'module',
   },
   rules: {
@@ -29,5 +30,5 @@ module.exports = {
     'import/resolver': {
       'babel-module': {},
     },
-  }
+  },
 };
