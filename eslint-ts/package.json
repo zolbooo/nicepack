@@ -1,6 +1,6 @@
 {
   "name": "@nicepack/eslint-ts",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "ESLint config for Nicepack with Typescript support",
   "main": "index.js",
   "keywords": [
@@ -13,6 +13,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.2.0",
     "eslint-config-prettier": "^6.10.1",
