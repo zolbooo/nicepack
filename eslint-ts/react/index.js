@@ -1,4 +1,4 @@
-const config = require('./base');
+const config = require('../base');
 
 config.settings = {
   ...config.settings,
