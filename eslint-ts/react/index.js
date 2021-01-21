@@ -8,6 +8,7 @@ config.settings = {
 };
 config.rules = {
   ...config.rules,
+  'no-console': 'warn',
   'react/jsx-curly-newline': 'off',
   'react/react-in-jsx-scope': 'off',
   'react/require-default-props': 'off',
