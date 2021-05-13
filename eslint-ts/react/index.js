@@ -13,6 +13,7 @@ config.rules = {
   'react/react-in-jsx-scope': 'off',
   'react/require-default-props': 'off',
   'react/jsx-props-no-spreading': 'off',
+  '@typescript-eslint/explicit-module-boundary-types': 'off',
 };
 
 module.exports = config;
