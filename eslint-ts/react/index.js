@@ -8,6 +8,8 @@ config.settings = {
 };
 config.rules = {
   ...config.rules,
+  // Disabled by the base config
+  'react/jsx-filename-extension': 'on',
   'no-console': 'warn',
   'react/jsx-curly-newline': 'off',
   'react/react-in-jsx-scope': 'off',

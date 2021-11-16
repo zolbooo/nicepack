@@ -26,6 +26,10 @@ module.exports = {
     'global-require': 'off',
     'no-console': 'off',
     'no-alert': 'off',
+    // Following rules should be disabled in the base config
+    'react/jsx-filename-extension': 'off',
+    // Following rules are throwing errors
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/resolver': {
