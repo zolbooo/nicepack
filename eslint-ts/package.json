@@ -1,6 +1,6 @@
 {
   "name": "@nicepack/eslint-ts",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "ESLint config for Nicepack with Typescript support",
   "main": "index.js",
   "keywords": [
